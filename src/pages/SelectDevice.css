@@ -1,0 +1,80 @@
+.row_changes {
+  margin-top: 1.5rem;
+}
+
+.button_ion {
+  margin-top: 1rem;
+  padding-bottom: 1.5rem;
+  height: 140px;
+  width: 140px;
+  border-radius: 60%;
+  background-color: gray;
+}
+
+.device-name {
+  margin-top: -5px;
+  text-align: center;
+}
+
+.icon_corner {
+  height: 60px;
+  width: 60px;
+}
+
+/*
+.row_changes{
+    margin-top:1.5rem;
+}
+
+
+.button_ion{
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    height : 90%; 
+     padding-top: 3rem; 
+    font-size: 40px;
+    border-radius: 50%;
+    background-color : gray;
+}
+
+.button_ion1{
+    margin-top: 3.5rem;
+    height : 90%; 
+    padding-top: 2rem;
+    font-size: 40px;
+    border-radius: 50%;
+    background-color : gray;
+}
+
+.button_ion2{
+    margin-top: 5rem;
+    height : 90%; 
+    padding-top: 0.5rem;
+    font-size: 40px;
+    border-radius: 50%;
+    background-color : gray;
+}
+
+.icon_corner{
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin-bottom: auto;
+}
+
+.icon_corner1{
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin-bottom: auto;
+}
+
+.icon_corner2{
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin: auto;
+}
+
+
+*/
