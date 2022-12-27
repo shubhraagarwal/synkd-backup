@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "117878083526",
+    "project_id": "synkd-298607",
+    "storage_bucket": "synkd-298607.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117878083526:android:9f10ced9aa1be4b8876cc7",
+        "android_client_info": {
+          "package_name": "com.synkd.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "117878083526-iqqlhdrj9v0lliv4qbavo8t0k455ukue.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.synkd.app",
+            "certificate_hash": "f1380081bb70cacd209263f9f45aef6ad878b41b"
+          }
+        },
+        {
+          "client_id": "117878083526-sm8s4co30tdtmrvf7k0qhpa459uiegto.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.synkd.app",
+            "certificate_hash": "b50114c208f6615a3741ae36ed92e3df158d1608"
+          }
+        },
+        {
+          "client_id": "117878083526-ibnd11p43nj42lbs3pc8mtje0ctc03ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCflh60r_gUrns6sh5DdfMqFefx_kUMZ28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "117878083526-ibnd11p43nj42lbs3pc8mtje0ctc03ee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

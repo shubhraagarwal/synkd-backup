@@ -1,0 +1,57 @@
+.grid_mod {
+  padding-top: 3rem;
+  padding-left: 3rem;
+}
+
+.userrow {
+  padding-left: 0.5rem;
+}
+
+.ion_content {
+  --ion-background-color: #e1eaf9 !important;
+}
+
+ion-item {
+  --highlight-color-focused: none;
+}
+
+.email_field {
+  padding-top: 1.5rem !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+input {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-radius: 25px;
+  width: 80%;
+}
+
+.button_ion {
+  padding-top: 2rem;
+}
+
+.button_con {
+  width: 15rem;
+  margin-left: auto;
+  margin-right: 80px;
+}
+
+.row_space {
+  padding-top: 20px;
+}
+
+.footer {
+  padding-top: 7rem;
+}
+
+.footer_title {
+  font-size: 15px;
+  color: blue;
+  text-decoration: underline;
+}
+
+.ion_item {
+  text-align: center;
+}

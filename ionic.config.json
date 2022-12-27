@@ -1,0 +1,7 @@
+{
+  "name": "Synkd",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

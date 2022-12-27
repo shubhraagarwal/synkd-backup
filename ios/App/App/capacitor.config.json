@@ -1,0 +1,20 @@
+{
+  "appId": "com.synkd.app",
+  "appName": "Synkd",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0,
+      "launchAutoHide": true,
+      "backgroundColor": "#ffffffff"
+
+    },
+    "GoogleAuth": {
+      "scopes": ["profile","email"],
+      "serverClientId": "117878083526-ibnd11p43nj42lbs3pc8mtje0ctc03ee.apps.googleusercontent.com"
+      }
+  },
+  "cordova": {}
+}
