@@ -110,6 +110,9 @@ class RoomComponent extends React.Component {
   showSetupBuilderChipModal() {
     this.setState({ showSetupBuilderChipModal: true });
   }
+  addSlot() {
+    this.setState({ showSetupSlotModal: true });
+  }
 
   closeSetupBuilderChipModal() {
     this.setState({ showSetupBuilderChipModal: false });
@@ -323,6 +326,8 @@ class RoomComponent extends React.Component {
     }
   }
 
+  //write a logic to create edit slot
+
   async getIPfromCloud() {
     var data = JSON.stringify({ mac: this.state.mac });
     console.log("Attempting to get new ip of " + this.state.mac);
@@ -458,7 +463,7 @@ class RoomComponent extends React.Component {
   }
 
   addToGroup() {
-    this.setState({ showGroupActionSheet: true });
+    this.setState({ showSetup: true });
   }
 
   addToNewGroup() {
@@ -590,8 +595,9 @@ class RoomComponent extends React.Component {
             <IonLabel>Add to Group</IonLabel>
           </IonItem>
 
-          <IonItem onClick={() => this.props.addSlot()}>
+          <IonItem>
             <IonIcon
+              onClick={() => this.addSlot()}
               icon={pencilSharp}
               size="large"
               className="io-icon"
