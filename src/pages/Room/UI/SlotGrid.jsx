@@ -157,6 +157,30 @@ class SlotGrid extends React.Component {
     }
   }
 
+  async removeSlotLocally(mac, slotnumber) {
+    var unparsedSlots = localStorage.getItem(mac);
+    if (unparsedSlots !== null) {
+      var chip = JSON.parse(unparsedSlots);
+      var slots = chip.slots;
+      var slotCount = chip.slotcount;
+
+      for (var i = 0; i < slots.length; i++) {
+        if (slots[i].slotnumber == slotnumber) {
+          slots.splice(i, 1);
+          slotCount--;
+          break;
+        }
+      }
+
+      var obj = {
+        slots: slots,
+        slotcount: slotCount,
+      };
+
+      localStorage.setItem(mac, JSON.stringify(obj));
+    }
+  }
+
   async getSlotsLocally(mac) {
     var unparsedSlots = localStorage.getItem(mac);
     if (unparsedSlots !== null) {

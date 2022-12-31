@@ -29,6 +29,7 @@ import {
   pencilSharp,
   timerSharp,
   calendarSharp,
+  trash,
 } from "ionicons/icons";
 import React from "react";
 import { withRouter } from "react-router";
@@ -45,7 +46,11 @@ import {
 import SetupBuilderChipModalComponentHolder from "../BuilderChip/SetupBuilderChipModalComponentHolder";
 import SetupSlotModalComponentHolder from "./SetupSlotModalComponentHolder";
 import { toggleSlot, getChipMac, startTimer } from "../ServerRequests/localApi";
-import { SOCKETIOHOST, retrieveSlots } from "../ServerRequests/globalApi";
+import {
+  SOCKETIOHOST,
+  retrieveSlots,
+  removeSlotFromGroup,
+} from "../ServerRequests/globalApi";
 
 var defaultChipName = "";
 var iconname = "";
@@ -326,8 +331,6 @@ class RoomComponent extends React.Component {
     }
   }
 
-  //write a logic to create edit slot
-
   async getIPfromCloud() {
     var data = JSON.stringify({ mac: this.state.mac });
     console.log("Attempting to get new ip of " + this.state.mac);
@@ -352,6 +355,33 @@ class RoomComponent extends React.Component {
       }
     } else {
       console.log("Could not retrieve chip ip from cloud.");
+    }
+  }
+
+  // remove slot
+  async removeSlot(slotnumber) {
+    var slotnum = slotnumber - 1;
+    var data = JSON.stringify({
+      mac: this.state.mac,
+      slot: slotnum,
+    });
+
+    const response = await removeSlotFromGroup(data);
+
+    if (response !== undefined) {
+      console.log(response[0]);
+      switch (response[0].status) {
+        case 200:
+          console.log("Slot removed.");
+          this.getSlots();
+          break;
+
+        default:
+          console.log("Could not remove slot.");
+          break;
+      }
+    } else {
+      console.log("Could not remove slot.");
     }
   }
 
@@ -483,7 +513,7 @@ class RoomComponent extends React.Component {
     this.props.component({ ComponentType: "HOME" });
   }
 
-  render() {
+  render(slotnumber) {
     let roomname = this.props.properties.roomname;
 
     return (
@@ -605,6 +635,16 @@ class RoomComponent extends React.Component {
             ></IonIcon>
             <IonLabel>Edit</IonLabel>
           </IonItem>
+          <IonItem>
+            <IonIcon
+              icon={trash}
+              size="large"
+              className="io-icon"
+              color="danger"
+              onClick={() => this.removeSlot(slotnumber)}
+            ></IonIcon>
+            <IonLabel>Delete</IonLabel>
+          </IonItem>
 
           <IonItem onClick={() => this.setTimer(this.state.showPopover)}>
             <IonIcon
@@ -626,9 +666,6 @@ class RoomComponent extends React.Component {
             <IonLabel>Set Schedule</IonLabel>
           </IonItem>
         </IonPopover>
-        {
-          // create edit button
-        }
 
         <AddToGroupModal
           isOpen={this.state.showPickGroupModal}
