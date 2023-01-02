@@ -1,0 +1,255 @@
+/*  Colours*/
+.ion-color-dark-tint{
+  --ion-color-base: var(--ion-color-dark-tint);
+}
+
+.ion-color-primary-shade{
+  --ion-color-base: var(--ion-color-primary-shade);
+}
+/*  Colours*/
+
+.Synkd_Logo {
+  height: 9rem;
+  padding-top: 2rem;
+  display: flex;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ion_header {
+  position: relative;
+  background-color: gray;
+}
+
+.toolbar-backgroundColor {
+  background-color: gray;
+}
+
+.ion_page {
+  color: #9d9fa6 !important;
+}
+
+.ion-content {
+  --ion-background-color: white !important;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.ion-img {
+  height: 100px;
+  width: 100px;
+  justify-content: center;
+}
+
+.ion_input1 {
+  color: var(--ion-color-dark-tint);
+}
+
+.email_field {
+  padding-top: 2rem !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  color: var(--ion-color-dark-tint);
+}
+
+.pwd_field {
+  padding-top: 1.5rem !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  color: white;
+}
+
+.loginbtn_item {
+  padding-top: 3rem !important;
+}
+
+.login_btn {
+  margin-top: 10%;
+  margin-left: 15%;
+  margin-right: 15%;
+  display: block;
+  border-radius: 50%;
+  text-align: center;
+  background-color: var(--ion-color-primary-shade);
+}
+
+.col_or {
+  text-align: center;
+  color: white;
+}
+
+.col_line {
+  margin-left: 2rem;
+  text-align: center;
+}
+
+.login_grid {
+  padding-top: 3rem;
+}
+
+.social_btns {
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.facebookbtn {
+  width: 65px;
+  height: 65px;
+}
+
+.googlebtn {
+  width: 70px;
+  height: 70px;
+  padding-left: 5px !important;
+}
+
+.ion_label1 {
+  font-size: 16pt !important;
+  text-align: center;
+}
+
+.home_name {
+  margin-top: 10rem;
+}
+
+.room_name {
+  margin-top: 5rem;
+}
+
+.icon-btn {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: inline-flex;
+}
+
+.ion-col {
+  padding-left: 2rem;
+  padding-right: 1rem;
+}
+
+.icon-label {
+  margin-top: 2rem;
+  height: 3rem;
+  padding-top: 0.5rem;
+  font-size: 25px;
+  text-align: center;
+  background-color: #9d9fa6;
+}
+
+.icon-grid {
+  margin-top: 2rem;
+}
+
+.io-icon {
+  color: #272729;
+}
+
+.shower-icon {
+  height: 40px;
+  width: 40px;
+  color: black;
+}
+
+.ion-col2 {
+  padding-left: 2rem;
+  padding-right: 1rem;
+  padding-top: 1rem;
+}
+
+.icon_label1 {
+  padding-top: 3rem !important;
+  font-size: 12pt !important;
+  text-align: center;
+}
+
+.icon-col {
+  text-align: center;
+  padding-right: 1rem;
+  padding-top: 1rem;
+  padding-left: 1rem;
+}
+
+.ion_listbed {
+  align-self: center;
+}
+
+.room-label {
+  font-size: 15pt;
+  width: 100%;
+}
+
+.icon-label2 {
+  height: 3rem;
+  padding-top: 0.5rem;
+  font-size: 25px;
+  text-align: center;
+  background-color: #9d9fa6;
+}
+
+.rn-col {
+  margin-top: 4rem;
+  text-align: center;
+  padding-left: 10rem;
+}
+
+.rn-input {
+  color: black;
+  margin-top: 1rem;
+  height: 50px;
+  width: 90px;
+  align-self: center;
+}
+
+.rn-item {
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+  color: white;
+}
+
+.rn-btn {
+  width: 10rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home-btn {
+  display: "flex";
+  height: "90%";
+  margin-left: "6rem";
+  margin-right: "10rem";
+  justify-content: "center";
+  font-size: "60px";
+}
+
+.phome-grid {
+  margin-top: 1.5rem;
+}
+
+.phome-row {
+  align-self: center;
+}
+
+.phome-col {
+  text-align: center;
+  align-self: auto;
+}
+
+.device-btn {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+}
+
+.my-custom-class {
+  --background: #222;
+  --spinner-color: #fff;
+
+  color: #fff;
+}
+

@@ -1,0 +1,23 @@
+[
+    {
+      "id": 1,
+      "rname": "r1",
+      "ricon": "bed"
+    },
+    {
+        "id": 2,
+        "rname": "r3",
+        "ricon": "bed"
+    },
+    {
+        "id": 3,
+        "rname": "r3",
+        "ricon": "bed"
+    },
+    {
+        "id": 4,
+        "rname": "r4",
+        "ricon": "bed"
+    }
+]
+  

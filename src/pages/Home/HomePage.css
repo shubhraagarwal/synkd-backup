@@ -1,0 +1,21 @@
+.ion_page {
+  color: #9d9fa6 !important;
+}
+
+.ion_content {
+  --ion-background-color: #e1eaf9 !important;
+}
+
+.addBtnIcon {
+  font-size: 200px !important;
+  width: 100% !important;
+  padding: 10px !important;
+
+}
+
+.roomBtn {
+  border-radius: 100%;
+  width: 70px;
+  height: 70px;
+  display: inline-flex;
+}

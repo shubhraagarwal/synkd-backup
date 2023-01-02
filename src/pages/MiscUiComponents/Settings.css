@@ -1,0 +1,52 @@
+.grid_mod {
+  padding-top: 3rem;
+  padding-left: 3rem;
+}
+
+.userrow {
+  padding-left: 0.5rem;
+}
+
+input {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-radius: 25px;
+  width: 80%;
+}
+
+.button-ion-set {
+  padding-top: 2rem !important;
+}
+
+.button_change_pwd {
+  margin-top: 10%;
+  margin-left: 15%;
+  margin-right: 15%;
+  display: block;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.titleDiv{
+  position: relative;
+  padding: 0;
+  margin-top: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.row_space {
+  padding-top: 20px;
+}
+
+.footer {
+  padding-top: 7rem;
+}
+
+.footer_title {
+  font-size: 15px;
+  padding-left: 7rem;
+  color: black;
+}

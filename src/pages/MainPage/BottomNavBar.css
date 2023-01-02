@@ -1,0 +1,5 @@
+.bottom-nav-bar{
+  --background-checked: var(--ion-color-primary);
+  --color-checked: var(--ion-color-primary-contrast);
+  --color-activated: transparent;
+}

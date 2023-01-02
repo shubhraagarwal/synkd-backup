@@ -1,0 +1,68 @@
+
+  /* Colours */
+  .ion-color-primary-shade{
+    --ion-color-base: var(--ion-color-primary-shade);
+  }
+
+  .ion-color-light-shade{
+    --ion-color-base: var(--ion-color-light-shade);
+  }
+
+  .ion-color-light-tint{
+    --ion-color-base: var(--ion-color-light-tint);
+  }
+  .ion-color-medium-shade{
+    --ion-color-base: var(--ion-color-medium-shade);
+  }
+  .ion-color-medium-tint{
+    --ion-color-base: var(--ion-color-medium-tint);
+  }
+  .ion-color-dark-tint{
+    --ion-color-base: var(--ion-color-dark-tint);
+  }
+  /* Colours */
+
+
+
+
+.spin{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+ }
+
+ .day-btn {
+   --border-radius: 50% !important;
+   width: 30px !important;
+   height: 30px !important;
+   margin: 5px;
+   
+  }
+
+  .delete-btn{
+    margin: 10px !important;
+  }
+
+  .scheduler-modal{
+   height: 80%;
+   width: 80%;
+   top: 80%;
+   transform: translate(-50%, -50%);
+   display: block; 
+
+  }
+
+  .not-found{
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+  }
+
+  .no-content-msg{
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+  }
