@@ -30,6 +30,7 @@ import {
   pencilSharp,
   timerSharp,
   calendarSharp,
+  trash,
 } from "ionicons/icons";
 import React from "react";
 import { withRouter } from "react-router";
@@ -620,15 +621,25 @@ class RoomComponent extends React.Component {
             <IonLabel>Add to Group</IonLabel>
           </IonItem>
 
-          {/* <IonItem>
-              <IonIcon
-                    icon={pencilSharp}
-                    size="large"
-                    className="io-icon"
-                    color="medium"
-                  ></IonIcon>
-                <IonLabel>Edit</IonLabel>
-          </IonItem>  */}
+          <IonItem>
+            <IonIcon
+              onClick={() => this.addSlot()}
+              icon={pencilSharp}
+              size="large"
+              className="io-icon"
+              color="medium"
+            ></IonIcon>
+            <IonLabel>Edit</IonLabel>
+          </IonItem>
+          <IonItem>
+            <IonIcon
+              icon={trash}
+              size="large"
+              className="io-icon"
+              color="danger"
+            ></IonIcon>
+            <IonLabel>Delete</IonLabel>
+          </IonItem>
 
           <IonItem onClick={() => this.setTimer(this.state.showPopover)}>
             <IonIcon
