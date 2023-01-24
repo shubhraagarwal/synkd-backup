@@ -26,17 +26,18 @@ import {
 // import IonAccordion from "@ionic/react";
 // import IonAccordionGroup from "@ionic/react";
 // import IonLabel from "@ionic/react";
-
+import { bulbOutline } from "ionicons/icons";
 import React from "react";
 import { closeOutline } from "ionicons/icons";
 import DisplayIconComponent from "../MiscUiComponents/DisplayIconComponent";
 import { setSlot } from "../ServerRequests/globalApi";
-
+import { retrieveSlots } from "../ServerRequests/globalApi";
+import { chipState } from "../ServerRequests/localApi";
 // import "./LoginPage.css";
 
 var fieldTitle = "";
 var auth_token;
-
+var chip_state = "";
 class NameSlots extends React.Component {
   constructor(props) {
     super(props);
@@ -49,7 +50,7 @@ class NameSlots extends React.Component {
       icon: this.props !== undefined ? this.props.icon : "",
       slotnumber: "",
       loading: false,
-
+      chip_state: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       isOpen: false,
       homeid: "",
       rname: "",
@@ -60,6 +61,9 @@ class NameSlots extends React.Component {
       rooms: [],
       showSetupRoomModal: false,
       showSideMenuOptionsModal: false,
+      showModal: false,
+      slotCount: 1,
+      slotsItems: [],
     };
   }
 
@@ -174,6 +178,165 @@ class NameSlots extends React.Component {
           ))}
         </IonList>
       </IonPopover>
+    );
+  }
+
+  //
+
+  updateChipState(chipstate) {
+    if (chipstate != chip_state) {
+      console.log("slotCount:" + this.state.slotCount);
+      chip_state = parseInt(chipstate);
+      var chip_state_num = chip_state.toString(2);
+      var arr = chip_state_num.split("").map(Number);
+
+      if (arr.length < this.state.slotCount) {
+        var chip_state_num_arr = [];
+        var difference = parseInt(this.state.slotCount) - parseInt(arr.length);
+
+        for (var i = 0; i < difference; i++) {
+          chip_state_num_arr[i] = 0;
+        }
+        for (var j = 0; j < arr.length; j++) {
+          chip_state_num_arr[j + difference] = arr[j];
+        }
+
+        this.setState({ ...this.state, chip_state: chip_state_num_arr });
+        console.log(this.state.chip_state);
+      } else {
+        chip_state_num = arr;
+        this.setState({ ...this.state, chip_state: chip_state_num });
+        console.log("chip_state:" + this.state.chip_state);
+      }
+    }
+  }
+
+  //
+
+  async getSlotsInfo(mac) {
+    var data = JSON.stringify({ mac: mac });
+    console.log("mac: " + mac);
+
+    this.setState({ loading: true });
+    this.getSlotsLocally(mac);
+
+    const response = await retrieveSlots(data);
+
+    if (response !== undefined) {
+      console.log(response[0]);
+      switch (response[0].status) {
+        case 200:
+          this.setState({
+            slotsItems: response[0].data.slots,
+            slotCount: response[0].data.slotcount,
+            loading: false,
+          });
+          /*On success, setting the homeid in the local storage*/
+          let obj = response[0].data.slotcount;
+          localStorage.setItem("slotCount", JSON.stringify(obj));
+          this.updateChipState(response[0].data.state);
+
+          const resp = await chipState(response[0].data.ip);
+          if (resp !== undefined) {
+            switch (resp[0].status) {
+              case 200:
+                this.updateChipState(resp[0].data.state);
+                break;
+
+              default:
+                break;
+            }
+          }
+          console.log(response[0].data);
+          break;
+
+        default:
+          console.log(
+            "Could not connect to cloud. Using local slot data if available."
+          );
+
+          break;
+      }
+    } else {
+      console.log(
+        "Could not conect to cloud. Using local slot data if available."
+      );
+    }
+  }
+
+  async getSlotsLocally(mac) {
+    var unparsedSlots = localStorage.getItem(mac);
+    if (unparsedSlots !== null) {
+      var chip = JSON.parse(unparsedSlots);
+      this.setState({
+        slotsItems: chip.slots,
+        slotCount: chip.slotcount,
+        loading: false,
+      });
+      /*On success, setting the homeid in the local storage*/
+      // let obj = slots;
+      // localStorage.setItem("slotCount", JSON.stringify(obj));
+      // //this.updateChipState(slots);
+      // console.log(slots);
+    } else {
+      this.setState({
+        showToast: true,
+        toastMsg: "Server Error.",
+      });
+
+      this.props.slots([]);
+      return false;
+    }
+
+    return true;
+  }
+
+  //create a modal to show slots in the rooms
+
+  modal() {
+    return (
+      <IonModal
+        isOpen={this.state.showModal}
+        onDidDismiss={() => this.setState({ showModal: false })}
+      >
+        <IonHeader className="ion-no-border">
+          <div className="titleDiv">
+            <IonTitle className="title">SLOTS</IonTitle>
+            <IonButton
+              className="close"
+              size="large"
+              fill="clear"
+              onClick={() => this.setState({ showModal: false })}
+            >
+              <IonIcon icon={closeOutline} color="dark"></IonIcon>
+            </IonButton>
+          </div>
+        </IonHeader>
+        <IonContent>
+          <IonList>
+            {this.state.slotsItems.map((item, index) => (
+              <IonItem
+                key={index}
+                onClick={() => {
+                  this.setState({
+                    showModal: false,
+                    slotid: item.slotid,
+                    slotname: item.slotname,
+                    slotstate: item.slotstate,
+                  });
+                }}
+              >
+                <IonIcon
+                  icon={item.slotstate ? bulbOutline : bulbOutline}
+                  color={item.slotstate ? "warning" : "medium"}
+                  slot="start"
+                ></IonIcon>
+                <IonLabel>{item.slotname}</IonLabel>
+              </IonItem>
+            ))}
+          </IonList>
+        </IonContent>
+      </IonModal>
     );
   }
 
@@ -325,7 +488,6 @@ class NameSlots extends React.Component {
                           rname: item.roomname,
                           ricon: item.icon,
                           roomid: item.roomid,
-                          showSetupRoomModal: false,
                         });
                       }}
                     >
@@ -334,7 +496,7 @@ class NameSlots extends React.Component {
                         size="medium"
                         className="io-icon"
                       />
-
+ 
                       {item.roomname}
                     </IonCol>
                   ))}

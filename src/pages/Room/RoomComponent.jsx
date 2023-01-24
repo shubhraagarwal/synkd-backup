@@ -115,6 +115,10 @@ class RoomComponent extends React.Component {
     this.setState({ toggleSwitch: !this.state.toggleSwitch });
   }
 
+  addSlot() {
+    this.setState({ showSetupSlotModal: true });
+  }
+
   showSetupBuilderChipModal() {
     this.setState({ showSetupBuilderChipModal: true });
   }
