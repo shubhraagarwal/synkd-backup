@@ -58,7 +58,7 @@ class BuilderChipSetupWifi extends React.Component {
   }else{
     if(this.state.settingUp){
       toastMsg = "Setting up... Please wait.";
-      this.handleToast();
+      // this.handleToast();
     }else{
 //Change SSID======================================================================================
     this.setState({settingUp: true});

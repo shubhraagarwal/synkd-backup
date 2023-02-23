@@ -135,11 +135,11 @@ async verifyConnectionWithChip() {
               </IonButton>
               </div>
 
-        <IonLoading
+        {/* <IonLoading
             isOpen={this.state.loading}
             onDidDismiss={() => this.setState({laoding: false})}
             message={'Attempting to communicate with chip...Please wait.'}
-          />
+          /> */}
 
         <IonToast
           isOpen={this.state.showToast}

@@ -89,10 +89,10 @@ render(){
 let item = this.props.group;
 
     return(       <div>
-                      <IonLoading
+                      {/* <IonLoading
                         isOpen={this.state.loading}
                         onDidDismiss={() => this.setState({loading: false})}
-                        message={'Please Wait...'}/>
+                        message={'Please Wait...'}/> */}
 
                     <IonPopover
                            mode="md"

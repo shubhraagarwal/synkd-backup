@@ -717,12 +717,12 @@ class RoomComponent extends React.Component {
           slots={() => {}}
           addSlot={() => this.setState({ showSetupSlotModal: true })}
         />
-
+{/* 
         <IonLoading
           isOpen={this.state.toggleAttemting}
           onDidDismiss={() => this.setState({ loading: false })}
           message={"Please wait..."}
-        />
+        /> */}
         <IonPopover
           isOpen={this.state.showPopover === undefined ? false : true}
           onDidDismiss={() => this.setState(() => ({ showPopover: undefined }))}

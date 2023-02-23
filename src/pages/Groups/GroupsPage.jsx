@@ -772,12 +772,12 @@ class GroupsPage extends React.Component {
 
         {groupgrid}
         {popover}
-
+{/* 
         <IonLoading
           isOpen={this.state.loading}
           onDidDismiss={() => this.setState({ loading: false })}
           message={"Please wait..."}
-        />
+        /> */}
         <IonLoading
           isOpen={this.state.retrievingState}
           message={"Setting Group State..."}
