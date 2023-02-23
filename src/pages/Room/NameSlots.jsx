@@ -400,13 +400,11 @@ class NameSlots extends React.Component {
         <>
           <select className="select-box">
             <option hidden value="opt1" style={{ color: "grey" }}>
-              Select a option......
+              Select Device type......
             </option>
-            <option value="opt2">Option 1</option>
-            <option value="opt3">Option 2</option>
-            <option value="opt4">Option 3</option>
-
-            <option value="opt5">Option 4</option>
+            <option value="option1">option 1</option>
+            <option value="fanSwitchContoller">FanSwitch Controller</option>
+            <option value="twoWaySwitch">Two Way Switch</option>
           </select>
         </>
         {/* : null} */}
@@ -442,8 +440,8 @@ class NameSlots extends React.Component {
         <div style={{ display: "flex", marginTop: "30px" }}>
           <input className="checkbox" type="checkbox" value="" id="" />
           <label className="checkbox-name">check for primary device</label>
-
-          {/* <IonButton
+          {/* 
+          <IonButton
             className="rn-btn"
             buttonType="button"
             shape="round"
@@ -496,7 +494,7 @@ class NameSlots extends React.Component {
                         size="medium"
                         className="io-icon"
                       />
- 
+
                       {item.roomname}
                     </IonCol>
                   ))}

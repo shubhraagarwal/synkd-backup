@@ -42,9 +42,10 @@ import { retrieveSlots } from "../ServerRequests/globalApi";
 import { getTimers, getSchedules, getChipMac, setTimer, setSchedule, deleteTimer, deleteSchedule } from "../ServerRequests/localApi";
 import notFound from "../../images/device-icons/notFound/notFound.svg";
 import DisplayIconComponent from "../MiscUiComponents/DisplayIconComponent";
-import { Plugins } from "@capacitor/core";
-const { Network } = Plugins;
-
+import { Network } from '@capacitor/network';
+import io from "socket.io-client";
+import WebSocket from "ws";
+const socket = io();
 
 
 
@@ -233,7 +234,7 @@ class AutomationPage extends React.Component {
   async deleteTimer(){
         this.setState({showTimDelAlert: false, loadingTimers: true});
         console.log('Mac:'+this.state.deleteMac+' Slot:'+this.state.deleteSlot);
-        
+        socket.emit("timer-delete", {mac: this.state.deleteMac, slotnumber: this.state.deleteSlot});
         if(this.verifyMac(this.state.deleteMac)){
 
           var ip = JSON.parse(localStorage.getItem(this.state.deleteMac)).ip;
@@ -288,7 +289,7 @@ class AutomationPage extends React.Component {
 
         this.setState({showSchDelAlert: false, loadingSchedules: true});
         console.log('Mac:'+this.state.deleteMac+' Slot:'+this.state.deleteSlot);
-      
+        socket.emit("schedule-delete", {mac: this.state.deleteMac, slotnumber:this.state.deleteSlot, schedule: this.state.schedulerData});
         console.log('Mac:'+this.state.deleteMac+' Slot:'+this.state.deleteSlot);
         
         if(this.verifyMac(this.state.deleteMac)){
@@ -959,9 +960,9 @@ class AutomationPage extends React.Component {
 
       console.log("TimerSet:"+timerDur);
       console.log("showTimSetAlert:"+JSON.stringify(this.state.showTimSetAlert));
-      var hours = parseFloat(timerDur.split(":")[0]);
-      var mins = parseFloat(timerDur.split(":")[1]);
-      var secs = parseFloat(timerDur.split(":")[2]);
+      var hours = parseFloat(timerDur?.split(":")[0]);
+      var mins = parseFloat(timerDur?.split(":")[1]);
+      var secs = parseFloat(timerDur?.split(":")[2]);
       hours = hours * 60;
       secs = secs/60;
       var timer_dur = parseFloat(hours+mins+secs).toFixed(3);
@@ -983,7 +984,7 @@ class AutomationPage extends React.Component {
     
         
 
-        const response = await setTimer(ip, timer_dur, slot);
+        const response = await setTimer(ip, timer_dur, slot,mac);
 
         if(response !== undefined){
           this.setState({settingUp: "NULL"});

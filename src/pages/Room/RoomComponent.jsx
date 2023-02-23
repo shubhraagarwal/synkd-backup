@@ -20,6 +20,7 @@ import {
   IonModal,
   IonListHeader,
   IonImg,
+  IonInput,
 } from "@ionic/react";
 import {
   hardwareChip,
@@ -49,6 +50,9 @@ import SetupBuilderChipModalComponentHolder from "../BuilderChip/SetupBuilderChi
 import SetupSlotModalComponentHolder from "./SetupSlotModalComponentHolder";
 import { toggleSlot, getChipMac, startTimer } from "../ServerRequests/localApi";
 import { SOCKETIOHOST, retrieveSlots } from "../ServerRequests/globalApi";
+import io from "socket.io-client";
+import WebSocket from "ws";
+const socket = io();
 
 var defaultChipName = "";
 var iconname = "";
@@ -108,15 +112,82 @@ class RoomComponent extends React.Component {
       showSetupSlotModal: false,
       toggleAttemting: false,
       toggleSwitch: false,
+      editRoomName: false,
+      roomName: "",
     };
   }
-
+  async editName() {
+    try {
+      fetch("https://clickademy.in/room/update-name", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth_token,
+        },
+        body: JSON.stringify({
+          roomid: this.state.roomid,
+          roomname: "bal bla",
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   toggleSwitch() {
     this.setState({ toggleSwitch: !this.state.toggleSwitch });
   }
 
   addSlot() {
     this.setState({ showSetupSlotModal: true });
+  }
+  async deleteSlot() {
+    //const token = await  localStorage.getItem("token");
+
+    try {
+      fetch("https://clickademy.in/switchcontrollers/delete-slot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth_token,
+        },
+        body: JSON.stringify({
+          mac: this.state.mac,
+          slotnumber: this.state.slotnumber,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+    console.log("Delete was clicked!");
+  }
+  async deleteRoom() {
+    console.log("Delete room Clicked!!");
+    try {
+      fetch("https://clickademy.in/switchcontrollers/room/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth_token,
+        },
+        body: JSON.stringify({
+          roomid: this.state.roomid,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   showSetupBuilderChipModal() {
@@ -511,7 +582,43 @@ class RoomComponent extends React.Component {
             >
               <IonIcon icon={arrowBack} size="medium"></IonIcon>
             </IonButton>
-            <IonTitle slot="secondary">{roomname}</IonTitle>
+            <IonButton
+              onClick={() => {
+                this.setState({ editRoomName: !this.state.editRoomName });
+              }}
+              slot="end"
+              fill="clear"
+              color="dark"
+            >
+              EDIT
+            </IonButton>
+            <IonIcon
+              onClick={() => {
+                this.deleteRoom();
+              }}
+              slot="end"
+              fill="clear"
+              color="dark"
+              icon={trash}
+              style={{ scale: "125%" }}
+            ></IonIcon>
+            {!this.state.editRoomName ? (
+              <>
+                <IonTitle>{roomname}</IonTitle>
+              </>
+            ) : (
+              <>
+                <IonInput
+                  placeholder="Enter Room Name"
+                  onKeyPress={async (e) => {
+                    if (e.key === "Enter") {
+                      this.setState({ roomName: e.target.value });
+                      this.editName();
+                    }
+                  }}
+                />
+              </>
+            )}
           </IonToolbar>
         </IonHeader>
 
@@ -555,12 +662,26 @@ class RoomComponent extends React.Component {
                         size="4"
                         style={{ width: "25px" }}
                         src={bulbon}
+                        onClick={() => {
+                          socket.emit("enable-night-mode", {
+                            mac: this.state.mac,
+                          });
+                          console.log("Night mode enabled");
+                          toggleSlot();
+                        }}
                       ></IonImg>
                     ) : (
                       <IonImg
                         size="4"
                         style={{ width: "25px" }}
                         src={bulboff}
+                        onClick={() => {
+                          socket.emit("disable-night-mode", {
+                            mac: this.state.mac,
+                          });
+                          console.log("Night mode disabled");
+                          toggleSlot();
+                        }}
                       ></IonImg>
                     )}
                   </IonLabel>
@@ -637,6 +758,7 @@ class RoomComponent extends React.Component {
           </IonItem>
           <IonItem>
             <IonIcon
+              onClick={() => this.deleteSlot()}
               icon={trash}
               size="large"
               className="io-icon"
