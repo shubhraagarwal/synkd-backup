@@ -103,6 +103,7 @@ class RoomComponent extends React.Component {
       state: "0",
       mac: "",
       ip: "",
+      slotnumber: "",
       showPopover: undefined,
       slotCount: 8,
       showToast: false,
@@ -129,8 +130,8 @@ class RoomComponent extends React.Component {
           roomname: "bal bla",
         }),
       })
-        .then((res) => res.json())
-        .then((data) => {
+        .then(res => res.json())
+        .then(data => {
           console.log(data);
         });
     } catch (err) {
@@ -144,9 +145,9 @@ class RoomComponent extends React.Component {
   addSlot() {
     this.setState({ showSetupSlotModal: true });
   }
-  async deleteSlot() {
+  async deleteSlot(mac, slotnumber) {
     //const token = await  localStorage.getItem("token");
-
+    console.log("Delete was clicked!", mac, slotnumber);
     try {
       fetch("https://clickademy.in/switchcontrollers/delete-slot", {
         method: "POST",
@@ -155,18 +156,18 @@ class RoomComponent extends React.Component {
           Authorization: "Bearer " + auth_token,
         },
         body: JSON.stringify({
-          mac: this.state.mac,
-          slotnumber: this.state.slotnumber,
+          mac: mac,
+          slotnumber: slotnumber,
         }),
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
+        .then(res => res.json())
+        .then(data => {
+          console.log(data, mac, slotnumber);
         });
     } catch (err) {
       console.log(err);
     }
-    console.log("Delete was clicked!");
+    console.log("Delete was clicked!", this.state.mac, this.state.slotnumber);
   }
   async deleteRoom() {
     console.log("Delete room Clicked!!");
@@ -181,8 +182,8 @@ class RoomComponent extends React.Component {
           roomid: this.state.roomid,
         }),
       })
-        .then((res) => res.json())
-        .then((data) => {
+        .then(res => res.json())
+        .then(data => {
           console.log(data);
         });
     } catch (err) {
@@ -218,7 +219,7 @@ class RoomComponent extends React.Component {
 
     this.LoadChips();
 
-    document.addEventListener("ionBackButton", (ev) => {
+    document.addEventListener("ionBackButton", ev => {
       ev.detail.register(10, () => {
         this.props.component({ ComponentType: "HOME" });
         console.log("Back Pressed");
@@ -258,24 +259,24 @@ class RoomComponent extends React.Component {
       }
     }
 
-    window.socket.on("connect_error", (err) => {
+    window.socket.on("connect_error", err => {
       console.log(`connect_error due to ${err.message}`);
     });
 
-    window.socket.on("state", (data) => {
+    window.socket.on("state", data => {
       console.log("sio state: " + data.state);
       this.setState({ chipstate: data.state });
     });
 
-    window.socket.on("connected", (data) => {
+    window.socket.on("connected", data => {
       console.log("connected to socketio");
     });
 
-    window.socket.on("connection", (data) => {
+    window.socket.on("connection", data => {
       console.log("connection to socketio");
     });
 
-    window.socket.on("connect", (data) => {
+    window.socket.on("connect", data => {
       console.log("connect to socketio");
     });
   }
@@ -610,7 +611,7 @@ class RoomComponent extends React.Component {
               <>
                 <IonInput
                   placeholder="Enter Room Name"
-                  onKeyPress={async (e) => {
+                  onKeyPress={async e => {
                     if (e.key === "Enter") {
                       this.setState({ roomName: e.target.value });
                       this.editName();
@@ -628,7 +629,7 @@ class RoomComponent extends React.Component {
           mode="md"
           value={defaultChipName}
         >
-          {this.state.switchitems.map((item) => {
+          {this.state.switchitems.map(item => {
             return (
               <IonSegmentButton
                 type="button"
@@ -704,20 +705,20 @@ class RoomComponent extends React.Component {
         </IonSegment>
         <IonRefresher
           slot="fixed"
-          onIonRefresh={(event) =>
-            this.changeSelectedChip(this.state.mac, event)
-          }
+          onIonRefresh={event => this.changeSelectedChip(this.state.mac, event)}
         >
           <IonRefresherContent />
         </IonRefresher>
         <SlotGrid
           mac={this.state.mac}
-          isShortPressed={(item) => this.onClickBtnFn(item.slotnumber)}
-          isLongPressed={(item) => this.setState(() => ({ showPopover: item }))}
+          isShortPressed={item => {
+            this.onClickBtnFn(item.slotnumber);
+          }}
+          isLongPressed={item => this.setState(() => ({ showPopover: item }))}
           slots={() => {}}
           addSlot={() => this.setState({ showSetupSlotModal: true })}
         />
-{/* 
+        {/*
         <IonLoading
           isOpen={this.state.toggleAttemting}
           onDidDismiss={() => this.setState({ loading: false })}
@@ -758,7 +759,17 @@ class RoomComponent extends React.Component {
           </IonItem>
           <IonItem>
             <IonIcon
-              onClick={() => this.deleteSlot()}
+              onClick={item => {
+                console.log(
+                  this.state.switchitems[0].mac,
+                  "switchitems",
+                  localStorage.getItem("slot")
+                );
+                this.deleteSlot(
+                  this.state.switchitems[0].mac,
+                  localStorage.getItem("slot")
+                );
+              }}
               icon={trash}
               size="large"
               className="io-icon"
@@ -842,7 +853,7 @@ class RoomComponent extends React.Component {
               ComponentType: 1,
               ComponentProperties: { roomid: this.state.roomid },
             }}
-            onDidDismiss={(bool) =>
+            onDidDismiss={bool =>
               this.setState({ showSetupBuilderChipModal: !bool })
             }
           />
